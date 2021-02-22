@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+<body>
+  <!--1. 做界面-->
+  <div id="app">
+    <!--选中同意，则启用其它表单元素。如果不选中同意，则其它表单元素禁用
+      用户点击同意可修改是否同意的状态
+      其它三个表单元素是否启用也取决于是否同意这个状态
+      所以，整个界面中只需要一个变量就够了: 
+      isAgree 表示是否同意
+      希望其余三个表单元素的disabled属性随变量isAgree自动变化，应该用:绑定。
+      又因为disabled的属性值是bool，
+      如果用户选择了同意，就启用其它三个表单元素:
+      如果用户选择了不同意，就禁用其它三个表单元素
+      
+      所以-->
+    用户名: <input :disabled="isAgree==false"></br>
+    密码:<input type="password" :disabled="isAgree==false"><br>
+    <!--用户点击checkbox修改的是checkbox的checked属性，当修改checked属性时，就将是否同意保存到变量isAgree中-->
+    <!-- <input type="checkbox" v-model:checked="isAgree">同意<br> -->
+    <input type="checkbox" v-model="isAgree">同意<br>
+    <input type="submit" :disabled="isAgree==false"> 
+  </div>
+  <script>
+    //2. 创建new Vue()对象，监视id为app的区域
+    new Vue({
+      el:"#app",
+      //3. 创建模型对象保存界面中所需的所有变量
+      data:{
+        isAgree:false //开局，isAgree=false，表示默认不同意
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app1">
+        <h3 v-html="msg"></h3>
+    </div>
+
+    <div id="app2">
+        <h3 v-once>用户的登录时间：{{time}}</h3>
+        <h3>当前的时间：{{time}}</h3>
+    </div>
+
+    <div id="app3">
+        <h3 v-pre>就想要用{{姓名}}</h3>
+    </div>
+
+    <div id="app4">
+        <input type="text" v-model="keywords"><button @click="search">click me</button>
+    </div>
+
+    <div id="app5">
+        <input type="text" :value="keywords" @input="change"><button @click="search">click me</button>
+    </div>
+
+    <div id="app6">
+        性别：<label><input type="radio" value="1" name="sex" v-model="sex">男</label>
+        <label><input type="radio" value="0" name="sex" v-model="sex">女</label>
+        <h3>选中的性别是：{{sex}}</h3>
+    </div>
+
+    <div id="app7">
+        <select v-model="orderstutas">
+            <option value="10">未付款</option>
+            <option value="20">已付款</option>
+            <option value="30">已发货</option>
+            <option value="40">已签收</option>
+        </select>
+        <h3>订单状态是：{{orderstutas}}</h3>
+    </div>
+
+    <div id="app8">
+        用户名：<input type="text" :disabled="isAgree==false"><br>
+        密码：<input type="password" :disabled="isAgree==false"><br>
+        <input type="checkbox" v-model="isAgree">同意<br>
+        <input type="submit" :disabled="isAgree==false">
+    </div>
+    <script>
+        new Vue({
+            el:"#app1",
+            data:{
+                msg:`来自<a href="javascript:;">&lt;&lt;新华社&gt;&gt;</a>的消息`
+            }
+        })
+
+        var vm=new Vue({
+            el:"#app2",
+            data:{
+                time:new Date().toLocaleString()
+            }
+        })
+
+        setInterval(() => {
+            vm.time=new Date().toLocaleString()
+        },1000);
+
+        new Vue({
+            el:"#app3"
+        })
+
+        new Vue({
+            el:"#app4",
+            data:{
+                keywords:""
+            },
+            methods:{
+                search(){
+                    console.log(`查找关于${this.keywords}的内容`)
+                }
+            }
+        })
+
+        new Vue({
+            el:"#app5",
+            data:{
+                keywords:""
+            },
+            methods:{
+                change(e){
+                    //            当前文本框的内容
+                    this.keywords=e.target.value
+                },
+                search(){
+                    console.log(`查找关于${this.keywords}的内容`)
+                }
+            }
+        })
+
+        new Vue({
+            el:"#app6",
+            data:{
+                sex:1
+            }
+        })
+
+        new Vue({
+            el:"#app7",
+            data:{
+                orderstutas:"20"
+            }
+        })
+
+        new Vue({
+            el:"#app8",
+            data:{
+                isAgree:false
+            }
+        })
+    </script>
+</body>
+</html>

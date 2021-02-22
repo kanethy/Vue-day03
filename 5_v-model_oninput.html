@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+<body>
+  <!--1. 做界面-->
+  <div id="app">
+    <!--在文本框中输入关键词，点查询按钮执行用关键词查找的操作
+      当用户在文本框中输入关键词时，能自动修改vm对象中的keywords值
+      用户点按钮执行查找操作-->
+    <input id="txtKw" type="text" :value="keywords" @input="myChange"><button @click="search">百度一下</button>
+  </div>
+  <script>
+    //2. 创建newVue()对象，监视id为app的区域
+    var vm=new Vue({
+      el:"#app",
+      //3. 创建模型对象保存界面所需的所有变量和事件处理函数
+      data:{
+        keywords:""
+      },
+      methods:{
+        myChange(e){ //当前文本框的内容
+          this.keywords=e.target.value;
+        },
+        search(){
+          //               JS高级第2天
+          //如果keywords去掉开头和结尾的所有空字符后不等于""
+          //if(this.keywords.trim()!==""){
+            //才执行查找操作
+            console.log(`查找 ${this.keywords} 相关的内容....`)
+          //}
+        }
+      }
+    })
+  </script>
+</body>
+</html>

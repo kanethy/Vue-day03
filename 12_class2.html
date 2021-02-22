@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+  <style>
+    .errMsg{
+      padding:5px 10px;
+    }
+    .success{
+      background-color:lightGreen;
+      border:1px solid green;
+      color:green;
+    }
+    .fail{
+      background-color:pink;
+      border:1px solid red;
+      color:red;
+    }
+  </style>
+</head>
+<body>
+  <!--1. 先做界面-->
+  <div id="app">
+    <!--希望一边输入一边验证手机号的格式是否正确，根据验证结果修改span的class
+    errMsg作为基础样式的class常驻span元素上,必须要变量
+    success和fail两个class根据验证结果不同动态变化,但是考虑到其它元素也可能使用success和fail当做样式类名字动态变化，为了避免样式冲突，应该将success和fail两个变量放在一个统一的变量内。
+    用户在文本框中输入手机号时，程序中能随时接住用户输入的手机号！所以需要一个双向绑定的变量phone
+    用户一边输入，一边验证，所以需要绑定input的@input事件处理函数名为vali
+    span的内容也可能根据验证结果的不同动态变化，所以也需要一个变量msg-->
+    <!-- <input v-model:value="phone"> -->
+    <input v-model="phone" @input="vali">
+    <span class="errMsg" :class="spanClass">{{msg}}</span>
+  </div>
+  <script>
+    //2. 创建new Vue()对象监视id为app的区域
+    new Vue({
+      el:"#app",
+      //3. 创建模型对象保存界面所需的所有变量和事件处理函数
+      //虽然页面上需要3个变量+1个函数
+      //但是spanClass变量中却包含两个class名的定义
+      data:{
+        phone:"", //准备接页面上传入的手机号
+        spanClass:{
+          success:false,
+          fail:false
+        },
+        msg:"" //保存将来可能的错误提示信息，但是开局，未验证之前，没有任何提示
+      },
+      methods:{
+        vali(){
+          //定义正则表达式: 
+          //      JS高级第一天
+          var reg=/^1[3-9]\d{9}$/;
+          //用正则验证phone变量中的手机号
+          var result=reg.test(this.phone);
+          //如果验证通过就修改span的class为启用sucess，禁用fail，同时修改span的内容msg为手机号格式正确
+          if(result==true){
+            // this.spanClass.success=true;
+            // this.spanClass.fail=false;
+            this.spanClass={
+              success:true,
+              fail:false
+            }
+            this.msg="手机号格式正确"
+          }else{
+            //否则如果验证未通过就修改span的class为禁用success启用fail，同时修改span的内容为手机号格式不正确
+            this.spanClass={
+              success:false,
+              fail:true
+            }
+            this.msg="手机号格式不正确"
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

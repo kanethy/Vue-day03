@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+<body>
+  <!--1. 先做界面-->
+  <div id="app">
+    <!--希望img的top和left随程序中的变量自动变化
+      但是别的元素也可能修改top和left属性
+      为了避免和别的元素的top和left属性冲突，可以将top和left属性装到一个有名称的对象内，再绑定-->
+    <img src="img/p3.png" style="position:fixed;" :style="imgStyle">
+  </div>
+  <script>
+    //2. 创建new Vue()对象监视id为app的位置
+    var vm=new Vue({
+      el:"#app",
+      //3. 创建模型对象保存界面所需的变量
+      data:{
+        imgStyle:{
+          top:"50px",
+          left:"100px"
+        }
+      }
+    });
+    //用键盘方向键控制飞机飞行
+    //当键盘按下时
+    window.onkeydown=function(e){
+      //37  左  38  上  39  右  40  下
+      if(e.keyCode==37){ //左移动
+        //取出vm中left变量值，转为整数
+        var left=parseInt(vm.imgStyle.left);
+        //left-10
+        left-=10;
+        //再修改回vm的left变量中保存，一定要拼上单位
+        vm.imgStyle.left=left+"px";
+      }else if(e.keyCode==38){//上
+        //取出vm中top变量值，转为整数
+        var top=parseInt(vm.imgStyle.top);
+        //top-10
+        top-=10;
+        //再修改回vm的top变量中保存，一定要拼上单位
+        vm.imgStyle.top=top+"px";
+      }else if(e.keyCode==39){ //右移动
+        //取出vm中left变量值，转为整数
+        var left=parseInt(vm.imgStyle.left);
+        //left+10
+        left+=10;
+        //再修改回vm的left变量中保存，一定要拼上单位
+        vm.imgStyle.left=left+"px";
+      }else if(e.keyCode==40){ //下移动
+        //取出vm中top变量值，转为整数
+        var top=parseInt(vm.imgStyle.top);
+        //top+10
+        top+=10;
+        //再修改回vm的top变量中保存，一定要拼上单位
+        vm.imgStyle.top=top+"px";
+      }
+    }
+  </script>
+</body>
+</html>

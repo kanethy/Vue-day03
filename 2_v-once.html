@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+<body>
+  <!--1. 做界面-->
+  <div id="app">
+    <!--想显示用户上线的时间点(首次动态加载，之后不再改变)-->
+    <h3 v-once>用户上线时间: {{time}}</h3><!--不在虚拟DOM树-->
+    <!--想显示当前系统时间(随系统时间频繁变化)-->
+    <h3>当前系统时间: {{time}}</h3><!--在虚拟DOM树-->
+  </div>
+  <script>
+    //2. 创建new Vue()对象，监视id为app的区域
+    var vm=new Vue({
+      el:"#app",
+      //3. 创建模型对象
+      data:{ //只在首次创建new Vue()时执行一次，不会反复执行
+             //当前系统时间当地字符串格式
+        time:new Date().toLocaleString()
+      }
+    });
+    //每隔1秒
+    setInterval(function(){
+      //修改new Vue()对象中的time属性为新的当前系统时间
+      vm.time=new Date().toLocaleString()
+    },1000)
+  </script>
+</body>
+</html>

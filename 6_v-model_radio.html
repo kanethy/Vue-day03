@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+<body>
+  <!--1. 做界面-->
+  <div id="app">
+    <!--想选择性别
+        无论选男，还是选女，其实都是选择性别属性一个值！所以，只需要一个变量sex就能保存选中的性别-->
+    性别:
+    <!-- <label><input type="radio" name="sex" value="1" v-model:checked="sex">男</label>
+    <label><input type="radio" name="sex" value="0" v-model:checked="sex">女</label> -->
+    <label><input type="radio" name="sex" value="1" v-model="sex">男</label>
+    <label><input type="radio" name="sex" value="0" v-model="sex">女</label>
+    <!--上方选择后，下方显示选择了哪种性别-->
+    <h3>您选的性别是: {{sex}}</h3>
+  </div>
+  <script>
+    //2.创建new Vue()对象，监视id为app的区域
+    new Vue({
+      el:"#app",
+      //3. 创建模型对象，保存页面所需的所有变量
+      data:{
+        sex:1
+      }
+    })
+  </script>
+</body>
+</html>

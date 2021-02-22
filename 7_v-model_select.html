@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+</head>
+<body>
+  <!--1. 做界面-->
+  <div id="app">
+    <!--想用select选择订单状态
+        希望选中select下的某个option，自动更改程序中的orderStatus变量-->
+    <!-- <select v-model:value="orderStatus"> -->
+    <select v-model="orderStatus">
+      <option value="10">未付款</option>
+      <option value="20">已付款</option>
+      <option value="30">已发货</option>
+      <option value="40">已签收</option>
+    </select>
+    <!--下边显示选中的订单状态-->
+    <h3>订单状态: {{orderStatus}}</h3>
+  </div>
+  <script>
+    //2. 创建new Vue()对象监控id为app的区域
+    new Vue({
+      el:"#app",
+      //3. 创建模型对象保存界面所需的变量
+      data:{
+        orderStatus:10
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <script>
+        Vue.directive("myfocus",{
+            inserted(domElem){
+                domElem.focus();
+            }
+        })
+    </script>
+    <style>
+        .errMsg{
+            padding: 5px 10px;
+        }
+        .success{
+            background-color: lightGreen;
+            border: 1px solid green;
+            color: green;
+
+        }
+        .fail{
+            background-color: pink;
+            border: 1px solid red;
+            color: red;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="app1">
+        <img src="img/p3.png" style="position: fixed;" :style="{top:top,left:left}">
+    </div>
+
+    <div id="app2">
+        <img src="img/p3.png" style="position: fixed;" :style="imgstyle">
+    </div>
+
+    <div id="app3">
+        <input type="text" v-model="phone" @input="vali"><span class="errMsg" :class="spanClass">{{msg}}</span>
+    </div>
+
+    <div id="app4">
+        <input type="text" v-myfocus>
+    </div>
+    <script>
+       var vm=new Vue({
+           el:"#app1",
+           data:{
+               top:"100px",
+               left:"100px"
+           }
+       })
+
+        window.onkeydown=function(e){
+            if(e.keyCode==37){
+                var left=parseInt(vm.left);
+                left-=10;
+                vm.left=`${left}px`;
+            }else if(e.keyCode==38){
+                var top=parseInt(vm.top);
+                top-=10;
+                vm.top=`${top}px`
+            }else if(e.keyCode==39){
+                var left=parseInt(vm.left);
+                left+=10;
+                vm.left=`${left}px`
+            }else if(e.keyCode==40){
+                var top=parseInt(vm.top);
+                top+=10;
+                vm.top=`${top}px`
+            }
+        }
+
+
+        var vm=new Vue({
+           el:"#app2",
+           data:{
+               imgstyle:{
+                   top:"200px",
+                   left:"200px"
+               }
+           }
+       })
+
+       window.onkeydown=function(e){
+            if(e.keyCode==37){
+                var left=parseInt(vm.imgstyle.left);
+                left-=10;
+                vm.imgstyle.left=`${left}px`;
+            }else if(e.keyCode==38){
+                var top=parseInt(vm.imgstyle.top);
+                top-=10;
+                vm.imgstyle.top=`${top}px`
+            }else if(e.keyCode==39){
+                var left=parseInt(vm.imgstyle.left);
+                left+=10;
+                vm.imgstyle.left=`${left}px`
+            }else if(e.keyCode==40){
+                var top=parseInt(vm.imgstyle.top);
+                top+=10;
+                vm.imgstyle.top=`${top}px`
+            }
+        }
+
+
+        new Vue({
+            el:"#app3",
+            data:{
+                phone:"",
+                spanClass:{
+                    success:false,
+                    fail:false
+                },
+                msg:""
+            },
+            methods:{
+                vali(){
+                    var reg=/^1[3-9]\d{9}$/;
+                    var result=reg.test(this.phone);
+                    if(result==true){
+                        this.spanClass={
+                            success:true,
+                            fail:false
+                        };
+                        this.msg="手机号格式正确";
+                    
+                    }else{
+                        this.spanClass={
+                            success:false,
+                            fail:true
+                        };
+                        this.msg="手机号格式不正确"
+                    }
+                }
+            }
+        })
+
+        new Vue({
+            el:"#app4"
+        })
+    </script>
+</body>
+</html>

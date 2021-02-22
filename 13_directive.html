@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="js/vue.js"></script>
+  <script>
+    //先定义一个可让当前元素自动获得焦点的自定义指令，名为myfocus
+    Vue.directive("myfocus",{
+      inserted(domElem){
+        //只要让当前元素对象自动获得焦点
+        domElem.focus();//DOM第三天 HTML DOM form
+      }
+    })
+  </script>
+</head>
+<body>
+  <div id="app">
+    <!--希望在页面加载时，当前文本框自动获得焦点-->
+    <input v-myfocus>
+  </div>
+  <script>
+    new Vue({
+      el:"#app"
+    })
+  </script>
+</body>
+</html>
